@@ -1,0 +1,3 @@
+[submodule "themes/inside"]
+	path = themes/inside
+	url = https://github.com/spaco/hexo-theme-inside.git
