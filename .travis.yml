@@ -5,21 +5,26 @@ language: node_js
 node_js: stable
 
 # Travis-CI Caching
-cache:
-  directories:
-    - node_modules
+#cache:
+#  directories:
+#    - node_modules
+
+branches:
+  only:
+    - develop
+
+before_install:
+  - npm install -g hexo-cli
 
 # S: Build Lifecycle
 install:
-  - npm install hexo-cli -g
-  - npm install hexo-deployer-git --save
   - npm install
-
-before_script:
+  - npm install hexo-deployer-git --save
 
 # 无其他依赖项所以执行npm run build 构建就行了
 script:
-  - hexo g
+  - hexo clean
+  - hexo generate
 
 after_script:
   - cd ./public
@@ -30,10 +35,6 @@ after_script:
   - git commit -m "Update docs"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 # E: Build LifeCycle
-
-branches:
-  only:
-    - develop
 
 env:
   global:
