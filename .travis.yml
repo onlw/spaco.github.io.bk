@@ -11,6 +11,8 @@ cache:
 
 # S: Build Lifecycle
 install:
+  - npm install hexo-cli -g
+  - npm install hexo-deployer-git --save
   - npm install
 
 before_script:
