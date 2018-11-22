@@ -27,22 +27,10 @@ script:
   - hexo generate
 
 after_script:
-  - git clone https://${GH_REF} .deploy_git  # GH_REF是最下面配置的仓库地址
-  - cd .deploy_git
-  - git checkout master
-  - cd ../
-  - mv .deploy_git/.git/ ./public/   # 这一步之前的操作是为了保留master分支的提交记录，不然每次git init的话只有1条commit
-  - cd ./public
   - git config user.name "travis"
   - git config user.email "she.ct@outlook.com"
-  - git add .
-  - git commit -m "Travis CI Auto Builder"  # 提交记录包含时间 跟上面更改时区配合
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
-# E: Build LifeCycle
-
-env:
-  global:
-  - GH_REF: github.com/spaco/spaco.github.io.git
+  - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
+  - hexo deploy
 
 #notifications:
 #  email:
