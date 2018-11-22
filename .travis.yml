@@ -24,7 +24,6 @@ install:
 
 # 无其他依赖项所以执行npm run build 构建就行了
 script:
-  - hexo clean
   - hexo generate
 
 after_script:
@@ -37,7 +36,7 @@ after_script:
   - git config user.name "travis"
   - git config user.email "she.ct@outlook.com"
   - git add .
-  - git commit -m "Travis CI Auto Builder at `date +"%Y-%m-%d %H:%M"`"  # 提交记录包含时间 跟上面更改时区配合
+  - git commit -m "Travis CI Auto Builder"  # 提交记录包含时间 跟上面更改时区配合
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 # E: Build LifeCycle
 
