@@ -5,9 +5,9 @@ language: node_js
 node_js: stable
 
 # Travis-CI Caching
-#cache:
-#  directories:
-#    - node_modules
+cache:
+  directories:
+    - node_modules
 
 branches:
   only:
@@ -17,12 +17,10 @@ before_install:
   - export TZ='Asia/Shanghai' # 更改时区
   - npm install -g hexo-cli
 
-# S: Build Lifecycle
 install:
   - npm install
   - npm install hexo-deployer-git --save
 
-# 无其他依赖项所以执行npm run build 构建就行了
 script:
   - hexo generate
 
@@ -37,6 +35,7 @@ after_script:
   - git add .
   - git commit -m "Travis CI Auto Builder"  # 提交记录包含时间 跟上面更改时区配合
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+
 # E: Build LifeCycle
 
 #notifications:
