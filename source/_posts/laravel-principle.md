@@ -3,6 +3,7 @@ title: Principle of laravel
 categories: program
 tags: php
 comments: true
+date: 2018-09-23
 ---
 
 About Principle of Laravel
