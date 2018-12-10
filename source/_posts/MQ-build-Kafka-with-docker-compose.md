@@ -121,6 +121,18 @@ Kafka是一个分布式的、高吞吐量、高可扩展性的消息系统。Kaf
 
 3. 本地连接不用的wifi 导致ip变化
 
+   ```bash
+   docker-compose stop kafka zookeeper
+   docker-compose rm kafka zookeeper
+   
+   docker-compose up -d --force-recreate kafka
+   docker-compose up -d --force-recreate zookeeper
+   docker-compose up -d kafka zookeeper
+   ```
+
+4. WARN [Consumer clientId=consumer-1, groupId=group1] 1 partitions have leader brokers without a matching listener, including [test-0] (org.apache.kafka.clients.NetworkClient)
+
+
 ### Remarks
 
 - group_id 不需要配置，用户确定名称即可
@@ -163,3 +175,4 @@ Kafka是一个分布式的、高吞吐量、高可扩展性的消息系统。Kaf
 
 
 
+drwxr-xr-x@  26 ashe  staff   832B Dec  6 20:40 cache
