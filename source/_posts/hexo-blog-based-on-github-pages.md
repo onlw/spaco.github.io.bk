@@ -139,9 +139,10 @@ open `your-page.github.io` in the browser
 
 ### Replace domain name
 
-- 
+
 
 ### References
 
 [github+Hexo搭建blog](https://www.jianshu.com/p/863f3f2d1733)
 
+[浅析 Hexo 搭建博客的原理](https://juejin.im/post/598eeaff5188257d592e55bb)
