@@ -5,7 +5,8 @@ tags: php
 comments: true
 date: 2018-12-27
 ---
-Explains Garbage Collection (also known as GC) of PHP
+
+## Explains Garbage Collection (also known as GC) of PHP
 
 ### Related concepts
 
@@ -119,7 +120,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   debug_zval_dump($a);
   ```
 
-- unset
+- `unset`
 
   当 unset(var) 的时候，它删除符号表里的var的信息，准备清理它对应的zval及内存空间，这时它发现var对应的zval结构的 refcount 值是 > 1，也就是说，还有另外一个变量在一起用着这个zval，所以unset只需把这个zval的refcount减去1就行了
 
@@ -134,7 +135,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   debug_zval_dump($b);
   ```
 
-- Copy On Write
+- `Copy On Write`
 
   写入时复制是指：在 用变量对变量进行赋值时，这些相同值的变量指向同一块内存，只有当这些指向同一块内存的 相同值的变量 中的某一个变量的值 `发生改变`的时候，才需要进行`变量分离`，即：将 值发生改变的变量分离出来
 
@@ -168,7 +169,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
 
   PHP在修改一个变量以前，会首先查看这个变量的refcount，如果refcount大于1，PHP就会执行一个分离的过程（在Zend引擎中，分离是破坏一个引用对的过程）对于上面的代码，当执行到第三行的时候，PHP发现var想要改变，并且它指向的zval的refcount大于1，那么PHP就会复制一个新的zval出来，改变其值，将改变的变量指向新的zval（，并将原zval的refcount减1，并修改symbol_table里该变量的指针，使得 a 和 b 分离(Separation)。这个机制就是所谓的copy on write（写时复制，这里的写包括普通变量的修改及数组对象里的增加、删除单元操作）
 
-- Change On Write
+- `Change On Write`
 
   使用变量复制的时候 ，PHP内部并不是真正的复制，而是采用指向相同的zval结构来节约开销。那么，对于PHP中的引用，又是如何实现呢
 
@@ -214,7 +215,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
 
   ![](https://image-static.segmentfault.com/113/070/113070557-569f6e35da911_articlex)
 
-- debug_zval_dump()中参数是引用的话，refcount永远为1
+- `debug_zval_dump()中参数是引用的话，refcount永远为1`
 
   ```php
   $a = 1;
