@@ -9,7 +9,9 @@ Explains Garbage Collection (also known as GC) of PHP
 
 ### Related concepts
 
-- Garbage Collection
+- Garbage Collection : GC
+
+- PHP 5.2以前, PHP使用引用计数(Reference counting)来做资源管理,PHP 5.3才引入GC
 
 - zval  ：所有的变量都是用一个结构 zval 结构来保存的
 
@@ -104,7 +106,100 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   ```
 
   如果你奇怪 ，`var的refcount应该是1`啊？
-  我们知道，对于简单变量，PHP是以传值的形式传参数的。也就是说，当执行debug_zval_dump($var)的时候，var会以传值的方式传递给debug_zval_dump，也就是会导致var的refcount加1，所以只要能看到，当变量赋值给一个变量以后，能导致zval的refcount加 1 这个结果即可
+  我们知道，对于简单变量，PHP是以传值的形式传参数的。也就是说，当执行debug_zval_dump($var)的时候，var会以传值的方式传递给debug_zval_dump，也就是会导致var的refcount加1，所以只要能看到，当变量赋值给一个变量以后，能导致zval的refcount加 1
+
+  例子：
+
+  ```php
+  $a = 1;
+  $b = $a;
+  $c = $a;
+  
+  debug_zval_dump($a);
+  ```
+
+- unset
+
+  当 unset(var) 的时候，它删除符号表里的var的信息，准备清理它对应的zval及内存空间，这时它发现var对应的zval结构的 refcount 值是 > 1，也就是说，还有另外一个变量在一起用着这个zval，所以unset只需把这个zval的refcount减去1就行了
+
+  例子：
+
+  ```php
+  $a = 1;
+  $b = $a;
+  unset($a);
+  
+  # 
+  debug_zval_dump($b);
+  ```
+
+- Copy On Write
+
+  写入时复制是指：在 用变量对变量进行赋值时，这些相同值的变量指向同一块内存，只有当这些指向同一块内存的 相同值的变量 中的某一个变量的值 `发生改变`的时候，才需要进行`变量分离`，即：将 值发生改变的变量分离出来
+
+  使用场景：变量的多次赋值；函数的参数传递。
+
+  PHP中，Zend引擎为了区分同一块内存是否被多个变量引用，在zval结构中定义了ref_count和is_ref两个变量。
+
+  ref_count定义了内存被变量引用的次数，次数为0时销毁
+
+  is_ref定义了变量是否被强制引用，被强制引用时，值为1
+
+  ```php
+  $a = 1;
+  $b = &$a;
+  
+  $a 的 is_ref = 1;
+  ```
+
+  例子：
+
+  ```php
+  $a = 1;
+  $b = $a;
+  $a = 2;
+  
+  # 
+  debug_zval_dump($a);
+  # 
+  debug_zval_dump($b);
+  ```
+
+  PHP在修改一个变量以前，会首先查看这个变量的refcount，如果refcount大于1，PHP就会执行一个分离的过程（在Zend引擎中，分离是破坏一个引用对的过程）对于上面的代码，当执行到第三行的时候，PHP发现var想要改变，并且它指向的zval的refcount大于1，那么PHP就会复制一个新的zval出来，改变其值，将改变的变量指向新的zval（，并将原zval的refcount减1，并修改symbol_table里该变量的指针，使得 a 和 b 分离(Separation)。这个机制就是所谓的copy on write（写时复制，这里的写包括普通变量的修改及数组对象里的增加、删除单元操作）
+
+- Change On Write
+
+  使用变量复制的时候 ，PHP内部并不是真正的复制，而是采用指向相同的zval结构来节约开销。那么，对于PHP中的引用，又是如何实现呢
+
+  ```php
+  $a = 1;
+  $reference = &$a;
+  $a = 2;
+  
+  # refcount(2)  is_ref(1)
+  xdebug_debug_zval( 'a' );
+  ```
+
+  代码运行结果，$a 会被改为 2, 这个过程叫做 `change on write`, ZE 如何得知是否采用 Separation ？这个需要用到 
+
+  $a 的 is_ref属性，它代表是否被 & 引用，变量的 is_ref 默认为 0 ，大于 0则表示被引用，当 is_ref > 0 或者 refcount = 1,此时不需要 Separation，而是直接修改 zval 的值
+
+  ```php
+  if($if_ref || $refcount = 1){
+      # alter zval instead of Separation
+  }
+  ```
+
+  `尽管已经存在写时复制和写时改变，但仍然还存在一些不能通过is_ref和refcount来解决的问题`
+
+  ```php
+  $var = 1;
+  $var_dup = $a;
+  $var_ref = &$var;
+  ```
+
+  当执行第二行代码的时候,变量的值必须分离成两份完全独立的存在，也就是说php将一个zval的isref从0设为1之前，当然此时refcount还没有增加，会看该zval的refcount，如果refcount>1，则会分离, 将var_dup分离出去，并将var和var_ref做change on write关联。也就是，refcount=2, is_ref=1;
+  所以内存会给变量var_dup 分配出一个新的zval，类型与值同 var和var_ref指向的zval一样，是新分配出来的，尽管他们拥有同样的值，但是必须通过两个zval来实现。试想一下，如果三者指向同一个zval的话，改边 vardup的值，那么var和$var_ref 也会受到影响，这样是错误的
 
 
 
