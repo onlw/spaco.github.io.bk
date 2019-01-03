@@ -38,7 +38,7 @@ Explains Garbage Collection (also known as GC) of PHP
 
 PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的，要运行PHP代码需要PHP解析器，用户编写的PHP代码最终都会被PHP解析器解析执行，PHP的执行是通过 `Zend engine`（ZE, Zend引擎），ZE是用C编写的，用户编写的PHP代码最终都会被翻译成PHP的虚拟机ZE的虚拟指令（`OPCODES`）来执行，也就说最终会被翻译成一条条的指令
 
-### Sketch
+### Sketch :PHP5.3
 
 - `zval sketch`
 
@@ -52,7 +52,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
 
   `注意：数组和对象这类复合类型在生成zval时，会为每个单元生成一个 zval`
 
-  ![clipboard.png](https://segmentfault.com/img/bVsniw)
+  ![](https://image-static.segmentfault.com/101/144/1011448460-569f6db18305e_articlex)
 
 
 - `释放内存`
@@ -113,8 +113,9 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   ```php
   $a = 1;
   $b = $a;
-  $c = $a;
-  
+  $c = $b;
+  $d = $a;
+  # long(1) refcount(5)
   debug_zval_dump($a);
   ```
 
@@ -129,7 +130,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   $b = $a;
   unset($a);
   
-  # 
+  # long(1) refcount(2)
   debug_zval_dump($b);
   ```
 
@@ -159,9 +160,9 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   $b = $a;
   $a = 2;
   
-  # 
+  # long(2) refcount(2)
   debug_zval_dump($a);
-  # 
+  # long(1) refcount(2)
   debug_zval_dump($b);
   ```
 
@@ -199,9 +200,33 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   ```
 
   当执行第二行代码的时候,变量的值必须分离成两份完全独立的存在，也就是说php将一个zval的isref从0设为1之前，当然此时refcount还没有增加，会看该zval的refcount，如果refcount>1，则会分离, 将var_dup分离出去，并将var和var_ref做change on write关联。也就是，refcount=2, is_ref=1;
-  所以内存会给变量var_dup 分配出一个新的zval，类型与值同 var和var_ref指向的zval一样，是新分配出来的，尽管他们拥有同样的值，但是必须通过两个zval来实现。试想一下，如果三者指向同一个zval的话，改边 vardup的值，那么var和$var_ref 也会受到影响，这样是错误的
+  所以内存会给变量var_dup 分配出一个新的zval，类型与值同 var和var_ref指向的zval一样，是新分配出来的，尽管他们拥有同样的值，但是必须通过两个zval来实现。试想一下，如果三者指向同一个zval的话，改变 vardup的值，那么var和 var_ref 也会受到影响，这样是错误的
 
+  ![](https://image-static.segmentfault.com/238/459/2384596612-569f6e23462c4_articlex)
 
+  类似的：
+
+  ```php
+  $a = 1;
+  $b = &$a;
+  $c = $a;
+  ```
+
+  ![](https://image-static.segmentfault.com/113/070/113070557-569f6e35da911_articlex)
+
+- debug_zval_dump()中参数是引用的话，refcount永远为1
+
+  ```php
+  $a = 1;
+  $b = &$a;
+  
+  # long(1) refcount(1)
+  debug_zval_dump($a);
+  ```
+
+  PHP先看变量指向的zval是否被引用，如果是引用，则不再产生新的zval
+  甭管哪个变量引用了它，比如有个变量a被引用了，b=&a，就算自己引用自己a=&a，a所指向的zval都不会被复制，改变其中一个变量的值，另一个值也被改变（change on write）
+  如果is_ref为0且refcount大于1，改变其中一个变量时，复制新的zval（copy on write）
 
 ### Reference Counting
 
@@ -209,9 +234,48 @@ PHP5.2中使用的内存回收算法是[Reference Counting](http://en.wikipedia.
 
 Important : [Reference Counting Basics](http://php.net/manual/en/features.gc.refcounting-basics.php)
 
-
-
 出现的问题 ： 引用的值为变量自身，内存泄漏 -> [泄露实例](http://php.net/manual/en/features.gc.refcounting-basics.php)
+
+```php
+$a = array( 'one' );
+$a[] =& $a;
+xdebug_debug_zval( 'a' );
+```
+
+```bash
+# 类似如下
+a: (refcount=2, is_ref=1)=array (
+   0 => (refcount=1, is_ref=0)='one',
+   1 => (refcount=2, is_ref=1)=...
+)
+```
+
+图示：
+
+![](http://php.net/manual/zh/images/12f37b1c6963c1c5c18f30495416a197-loop-array.png)
+
+能看到数组变量 (a) 同时也是这个数组的第二个元素(1) 指向的变量容器中“refcount”为 *2*。上面的输出结果中的"..."说明发生了递归操作, 显然在这种情况下意味着"..."指向原始数组。
+
+跟刚刚一样，对一个变量调用unset，将删除这个符号，且它指向的变量容器中的引用次数也减1。所以，如果我们在执行完上面的代码后，对变量 a 调用unset, 那么变量 $a 和数组元素 "1" 所指向的变量容器的引用次数减1, 从"2"变成"1". 下例可以说明:
+
+```php
+unset($a);
+
+xdebug_debug_zval( 'a' );
+
+(refcount=1, is_ref=1)=array (
+   0 => (refcount=1, is_ref=0)='one',
+   1 => (refcount=1, is_ref=1)=...
+)
+```
+
+![](http://php.net/manual/zh/images/12f37b1c6963c1c5c18f30495416a197-leak-array.png)
+
+清除变量引起的问题：
+
+尽管不再有某个作用域中的任何符号指向这个结构(就是变量容器)，由于数组元素“1”仍然指向数组本身，所以这个容器不能被清除 。因为没有另外的符号指向它，用户没有办法清除这个结构，结果就会导致`内存泄漏`。庆幸的是，php将在脚本执行结束时清除这个数据结构，但是在php清除之前，将耗费不少内存。如果你要实现分析算法，或者要做其他像一个子元素指向它的父元素这样的事情，这种情况就会经常发生。当然，同样的情况也会发生在对象上，实际上对象更有可能出现这种情况，因为对象总是隐式的被引用。
+
+如果上面的情况发生仅仅一两次倒没什么，但是如果出现几千次，甚至几十万次的内存泄漏，这显然是个大问题。这样的问题往往发生在长时间运行的脚本中，比如请求基本上不会结束的守护进程(deamons)或者单元测试中的大的套件(sets)中。后者的例子：在给巨大的eZ(一个知名的PHP Library) 组件库的模板组件做单元测试时，就可能会出现问题。有时测试可能需要耗用2GB的内存，而测试服务器很可能没有这么大的内存。
 
 ### Concurrent Cycle Collection in Reference Counted Systems
 
