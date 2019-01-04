@@ -318,7 +318,7 @@ INSERT INTO `transaction`.`account`(`name`, `balance`) VALUES ('she', 600);
      +----+------+---------+
      ```
 
-  4. 在客户端A，接着执行balance = balance - 50 where id = 1，balance没有变成400-50=350，lilei的balance值用的是步骤（2）中的350来算的，所以是300，数据的一致性倒是没有被破坏。可重复读的隔离级别下使用了MVCC机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）
+  4. 在客户端A，接着执行balance = balance - 50 where id = 1，balance没有变成400-50=350，balance值用的是步骤（2）中的350来算的，所以是300，数据的一致性倒是没有被破坏。可重复读的隔离级别下使用了MVCC机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）
 
      ```bash
      mysql> select * from account;
@@ -330,7 +330,7 @@ INSERT INTO `transaction`.`account`(`name`, `balance`) VALUES ('she', 600);
      +----+------+---------+
      2 rows in set (0.00 sec)
      
-     mysql> update balance = balance - 50 where id = 1^C
+     mysql> update balance = balance - 50 where id = 1;
      mysql> update account set balance = balance-50 where id = 1;
      Query OK, 1 row affected (0.00 sec)
      Rows matched: 1  Changed: 1  Warnings: 0
@@ -403,12 +403,6 @@ INSERT INTO `transaction`.`account`(`name`, `balance`) VALUES ('she', 600);
      mysql> insert into account values(5,'tom',0);
      ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
      ```
-
-
-
-
-1. s 
-2. 
 
 
 
