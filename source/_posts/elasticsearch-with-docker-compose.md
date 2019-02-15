@@ -11,6 +11,14 @@ date: 2018-12-14
 ### Foreword
 
 
+
+### Why ES
+
+- 成熟
+- 高可用
+- 高扩展
+
+
 ### Development Environment
 
 - elasticsearch
@@ -276,10 +284,140 @@ docker-compose up -d elasticsearch kibana
   }
   ```
 
+- Search Document
+
+  - Easy Search
+
+    `GET /index_name/_search?q=key:value`
+
+    ```bash
+    GET /twitter/_search?q=user:kimchy
+    ```
+
+    Result
+
+    ```bash
+    {
+        "took": 35,
+        "timed_out": false,
+        "_shards": {
+            "total": 5,
+            "successful": 5,
+            "skipped": 0,
+            "failed": 0
+        },
+        "hits": {
+            "total": 3,
+            "max_score": 0.2876821,
+            "hits": [
+                {
+                    "_index": "twitter",
+                    "_type": "_doc",
+                    "_id": "TGap7GgBR1R5Vn49jL0L",
+                    "_score": 0.2876821,
+                    "_source": {
+                        "user": "kimchy",
+                        "post_date": "2009-11-15T14:12:12",
+                        "message": "trying out Elasticsearch"
+                    }
+                },
+                {
+                    "_index": "twitter",
+                    "_type": "_doc",
+                    "_id": "1",
+                    "_score": 0.2876821,
+                    "_source": {
+                        "user": "new-kimchy"
+                    }
+                },
+                {
+                    "_index": "twitter",
+                    "_type": "_doc",
+                    "_id": "3",
+                    "_score": 0.2876821,
+                    "_source": {
+                        "user": "kimchy",
+                        "post_date": "2009-11-15T14:12:12",
+                        "messages": "trying out Elasticsearch"
+                    }
+                }
+            ]
+        }
+    }
+    ```
+
+  - Request Body Search
+
+    ES 提供了一种JSON风格的 Query DSL (domain specific language)
+
+    使用request body 传递参数，更加灵活
+
+    ```bash
+    GET /twitter/_search
+    {
+        "query" : {
+            "term" : { "user" : "kimchy" }
+        }
+    }
+    ```
+
+    Result
+
+    ```bash
+    {
+      "took" : 3,
+      "timed_out" : false,
+      "_shards" : {
+        "total" : 5,
+        "successful" : 5,
+        "skipped" : 0,
+        "failed" : 0
+      },
+      "hits" : {
+        "total" : 3,
+        "max_score" : 0.2876821,
+        "hits" : [
+          {
+            "_index" : "twitter",
+            "_type" : "_doc",
+            "_id" : "TGap7GgBR1R5Vn49jL0L",
+            "_score" : 0.2876821,
+            "_source" : {
+              "user" : "kimchy",
+              "post_date" : "2009-11-15T14:12:12",
+              "message" : "trying out Elasticsearch"
+            }
+          },
+          {
+            "_index" : "twitter",
+            "_type" : "_doc",
+            "_id" : "1",
+            "_score" : 0.2876821,
+            "_source" : {
+              "user" : "new-kimchy"
+            }
+          },
+          {
+            "_index" : "twitter",
+            "_type" : "_doc",
+            "_id" : "3",
+            "_score" : 0.2876821,
+            "_source" : {
+              "user" : "kimchy",
+              "post_date" : "2009-11-15T14:12:12",
+              "messages" : "trying out Elasticsearch"
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+
 
 ### Test
 
-数据量为 223479
+数据量为 
 
 ```bash
 ## mysql 用时:11.081s
@@ -291,10 +429,15 @@ localhost:9200/company-100/_doc/_search?q=company_name:建
 
 
 
+### Extra
+
+- 本次测试223479条mysql数据为60.58MB，导入ES后,查看`http://localhost:9200/_cat/indices?v`，数据为106.6MB
+
 ### References
 
 - [http://solr-vs-elasticsearch.com/](http://solr-vs-elasticsearch.com/)
 - [elasticsearch document](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+- [为什么Elasticsearch/Lucene检索可以比MySQL快](https://blog.csdn.net/qq924862077/article/details/80382634)
 
 [百度指数对比](https://index.baidu.com/v2/main/index.html#/trend/elasticsearch?words=elasticsearch,solr)
 
