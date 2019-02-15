@@ -442,8 +442,7 @@ localhost:9200/company-100/_doc/_search?q=company_name:建
 - [http://solr-vs-elasticsearch.com/](http://solr-vs-elasticsearch.com/)
 - [elasticsearch document](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - [为什么Elasticsearch/Lucene检索可以比MySQL快](https://blog.csdn.net/qq924862077/article/details/80382634)
-
-[百度指数对比](https://index.baidu.com/v2/main/index.html#/trend/elasticsearch?words=elasticsearch,solr)
+- [百度指数对比](https://index.baidu.com/v2/main/index.html#/trend/elasticsearch?words=elasticsearch,solr)
 
 
 
