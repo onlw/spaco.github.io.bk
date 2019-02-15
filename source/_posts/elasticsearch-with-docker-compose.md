@@ -41,6 +41,10 @@ date: 2018-12-14
 
   Lucene是一套用于全文检索和搜寻的开放源码程式库，由Apache软件基金会支持和提供。Lucene提供了一个简单却强大的应用程序界面，能够做全文索引和搜寻，在Java开发环境里Lucene是一个成熟的免费开放源代码工具；就其本身而论，Lucene是现在并且是这几年，最受欢迎的免费Java资讯检索程式库。
 
+- Inverted Index
+
+  Lucene实现快速搜索的核心就是倒排索引
+
 - [全文搜索引擎](https://baike.baidu.com/item/全文搜索引擎)
 
   全文[搜索引擎](https://baike.baidu.com/item/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/104812)是目前广泛应用的搜索引擎。它的工作原理是计算机[索引](https://baike.baidu.com/item/%E7%B4%A2%E5%BC%95)程序通过扫描文章中的每一个词，对每一个词建立一个[索引](https://baike.baidu.com/item/%E7%B4%A2%E5%BC%95/5716853)，指明该词在文章中出现的次数和位置，当用户查询时，检索程序就根据事先建立的索引进行查找，并将查找的结果反馈给用户的检索方式。这个过程类似于通过字典中的检索字表查字的过程。
@@ -417,7 +421,7 @@ docker-compose up -d elasticsearch kibana
 
 ### Test
 
-数据量为 
+数据量为 223479条
 
 ```bash
 ## mysql 用时:11.081s
