@@ -1,6 +1,6 @@
 ---
 title: Test f
-permalink: test
+permalink: test/test1
 categories: program
 tags: elasticsearch
 comments: true
