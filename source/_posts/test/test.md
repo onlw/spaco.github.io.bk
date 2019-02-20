@@ -1,5 +1,6 @@
 ---
 title: Test f
+permalink: test
 categories: program
 tags: elasticsearch
 comments: true
