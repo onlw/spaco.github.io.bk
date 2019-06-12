@@ -1,9 +1,13 @@
 ---
-title: Composer-package-build
-categories: program
-tags: composer
+title: composer-package-build
+permalink: composer-package-build
+categories:
+- program
+tags: 
+- composer
 comments: true
-date: 2018-12-14
+date: 2019-02-14
+updated: 2019-02-14
 ---
 
 ## Build composer package

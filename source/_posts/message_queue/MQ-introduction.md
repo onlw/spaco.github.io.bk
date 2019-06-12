@@ -1,9 +1,13 @@
 ---
-title: MQ sketch
-categories: program
-tags: MQ
+title: mq-introduction
+permalink: mq-introduction
+categories:
+- program
+tags: 
+- MQ
 comments: true
 date: 2018-11-23
+updated: 2018-11-23
 ---
 
 ## MQ 简述

@@ -1,9 +1,13 @@
 ---
-title: reset_password
-categories: program
-tags: elasticsearch
+title: laravel-reset-password
+permalink: laravel-reset-password
+categories:
+- program
+tags: 
+- laravel
 comments: true
 date: 2019-05-20
+updated: 2019-05-20
 ---
 
 # Reset Password

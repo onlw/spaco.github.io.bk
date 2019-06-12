@@ -1,9 +1,13 @@
 ---
-title: DB migration Flyway
-categories: program
-tags: migration
+title: flyway
+permalink: flyway
+categories:
+- program
+tags: 
+- database migration
 comments: true
-date: 2018-12-14
+date: 2019-12-14
+updated: 2018-12-14
 ---
 
 ## Flyway

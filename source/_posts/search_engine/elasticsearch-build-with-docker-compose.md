@@ -1,15 +1,18 @@
 ---
-title: elasticsearch sketch
-categories: program
-tags: elasticsearch
+title: elasticsearch-build-with-docker-compose
+permalink: elasticsearch-build-with-docker-compose
+categories:
+- program
+tags: 
+- elasticsearch
+- search engine
 comments: true
 date: 2018-12-14
+updated: 2018-12-14
 ---
-
 ## Elasticsearch
 
 ### Foreword
-
 
 
 ### Why ES

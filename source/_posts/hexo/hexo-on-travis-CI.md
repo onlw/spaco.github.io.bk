@@ -1,9 +1,13 @@
 ---
-title: Deploy Hexo blog based on travis-CI
-categories: notes
-tags: Hexo
+title: hexo-on-travis-CI
+permalink: hexo-on-travis-CI
+categories:
+- notes
+tags: 
+- hexo
 comments: true
 date: 2018-09-01
+updated: 2018-09-01
 ---
 
 

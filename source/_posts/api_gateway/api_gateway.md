@@ -1,9 +1,13 @@
 ---
-title: API Gateway
-categories: program
-tags: API Gateway
+title: api-gateway-introduction
+permalink: api-gateway-introduction
+categories:
+- program
+tags:
+- api gateway
 comments: true
 date: 2018-10-23
+updated: 2018-10-23
 ---
 
 

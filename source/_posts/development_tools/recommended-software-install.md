@@ -1,9 +1,13 @@
 ---
-title: recommended software installed on mac or windows
-categories: notes
-tags: software
+title: recommended-software-install
+permalink: recommended-software-install
+categories: 
+- notes
+tags: 
+- software
 comments: true
 date: 2018-12-08
+updated: 2018-12-08
 ---
 
 

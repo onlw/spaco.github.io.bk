@@ -1,9 +1,14 @@
 ---
-title: Build kafka application with python
-categories: program
-tags: MQ-kafka
+title: kafka-case-with-python
+permalink: kafka-case-with-python
+categories:
+- program
+tags: 
+- MQ
+- kafka
 comments: true
 date: 2018-10-05
+updated: 2018-10-05
 ---
 
 ## Kafka in python

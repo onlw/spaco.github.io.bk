@@ -1,9 +1,13 @@
 ---
-title: PHP Garbage Collection
-categories: program
-tags: php
+title: php-garbage-collection
+permalink: php-garbage-collection
+categories:
+- program
+tags: 
+- php
 comments: true
-date: 2018-12-27
+date: 2018-12-09
+updated: 2018-12-09
 ---
 
 ## Explains Garbage Collection (also known as GC) of PHP

@@ -1,9 +1,14 @@
 ---
-title: Build Kafka with docker-compose
-categories: program
-tags: MQ-kafka
+title: kafka-build-with-docker-compose
+permalink: kafka-build-with-docker-compose
+categories:
+- program
+tags: 
+- MQ
+- kafka
 comments: true
 date: 2018-10-05
+updated: 2018-10-05
 ---
 
 ## Build Kafka with docker-compose

@@ -1,3 +1,15 @@
+---
+title: zsh
+permalink: zsh
+categories: 
+- notes
+tags: 
+- software
+comments: true
+date: 2018-12-05
+updated: 2018-12-05
+---
+
 ##Install zsh(oh-my-zsh) && plugins && themes
 
 ### zsh (oh-my-zsh)

@@ -1,10 +1,15 @@
 ---
-title: Mysql transaction
-categories: program
-tags: mysql
+title: mysql-transaction
+permalink: mysql-transaction
+categories:
+- program
+tags: 
+- mysql
 comments: true
 date: 2018-12-09
+updated: 2018-12-09
 ---
+
 
 数据库事务（Database Transaction）,是指作为单个逻辑工作单元执行的一系列操作，要么完全执行，要么完全地不执行
 

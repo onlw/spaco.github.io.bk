@@ -1,9 +1,13 @@
 ---
-title: mysql sketch
-categories: program
-tags: mysql
+title: mysql-basic
+permalink: mysql-basic
+categories:
+- program
+tags: 
+- mysql
 comments: true
 date: 2018-12-14
+updated: 2018-12-14
 ---
 
 ### Backend Service
@@ -14,18 +18,18 @@ LNMP
 
 - HTTP 服务器 ： Apache / Nginx
 
-  - 作用目的是一致的，简单说就是接收用户请求，然后处理请求，最后将处理结果返回给用户
+  - 作用目的是一致的, 简单说就是接收用户请求, 然后处理请求, 最后将处理结果返回给用户
 
 - 数据库
 
-  - 关系型数据库 ：，是指采用了关系模型来组织数据的数据库。 [几种常见关系型数据库](https://zhuanlan.zhihu.com/p/35003675)
+  - 关系型数据库 ：, 是指采用了关系模型来组织数据的数据库.  [几种常见关系型数据库](https://zhuanlan.zhihu.com/p/35003675)
 
   - - mysql ：
     - Oracle :
     - SQLite :
     - PostgreSQL
 
-  - extra ： 非关系型数据库Nosql (not only sql) :数据也是在逐渐增长和变得复杂、非固定结构化的。这些所有的变化都是很难在原有的关系型数据库中管理的;
+  - extra ： 非关系型数据库Nosql (not only sql) :数据也是在逐渐增长和变得复杂、非固定结构化的. 这些所有的变化都是很难在原有的关系型数据库中管理的;
 
   - - key-value（Redis）:
     - 文档型 （MongoDB）：
@@ -55,13 +59,13 @@ version 5.7.25
 
 #### 什么是数据库
 
-数据库（Database）是按照数据结构来组织、存储和管理数据的仓库。
+数据库（Database）是按照数据结构来组织、存储和管理数据的仓库. 
 
-每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。
+每个数据库都有一个或多个不同的 API 用于创建, 访问, 管理, 搜索和复制所保存的数据. 
 
-我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。
+我们也可以将数据存储在文件中, 但是在文件中读写数据速度相对较慢. 
 
-所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理的大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。
+所以, 现在我们使用关系型数据库管理系统（RDBMS）来存储和管理的大数据量. 所谓的关系型数据库, 是建立在关系模型基础上的数据库, 借助于集合代数等数学概念和方法来处理数据库中的数据. 
 
 RDBMS 即关系数据库管理系统(Relational Database Management System)的特点：
 
@@ -71,27 +75,27 @@ RDBMS 即关系数据库管理系统(Relational Database Management System)的�
 - 4.许多的行和列组成一张表单
 - 5.若干的表单组成database
 
-MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是较好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一
+MySQL 是最流行的关系型数据库管理系统, 在 WEB 应用方面 MySQL 是较好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一
 
 #### 为什么选用Mysql
 
 ```bash
 
-MySQL 是开源的，所以你不需要支付额外的费用。
-MySQL 支持大型的数据库。可以处理拥有上千万条记录的大型数据库。
-MySQL 使用标准的 SQL 数据语言形式。
-MySQL 可以运行于多个系统上，并且支持多种语言。这些编程语言包括 C、C++、Python、Java、Perl、PHP、Eiffel、Ruby 和 Tcl 等。
-MySQL 对PHP有很好的支持，PHP 是目前最流行的 Web 开发语言。
-MySQL 支持大型数据库，支持 5000 万条记录的数据仓库，32 位系统表文件最大可支持 4GB，64 位系统支持最大的表文件为8TB。
-MySQL 是可以定制的，采用了 GPL 协议，你可以修改源码来开发自己的 MySQL 系统。
+MySQL 是开源的, 所以你不需要支付额外的费用. 
+MySQL 支持大型的数据库. 可以处理拥有上千万条记录的大型数据库. 
+MySQL 使用标准的 SQL 数据语言形式. 
+MySQL 可以运行于多个系统上, 并且支持多种语言. 这些编程语言包括 C、C++、Python、Java、Perl、PHP、Eiffel、Ruby 和 Tcl 等. 
+MySQL 对PHP有很好的支持, PHP 是目前最流行的 Web 开发语言. 
+MySQL 支持大型数据库, 支持 5000 万条记录的数据仓库, 32 位系统表文件最大可支持 4GB, 64 位系统支持最大的表文件为8TB. 
+MySQL 是可以定制的, 采用了 GPL 协议, 你可以修改源码来开发自己的 MySQL 系统. 
 ```
 
 #### 相关概念
 
 - 数据库(database) : 数据库是一些关联表的集合
 - 数据表
-- 主键(PRIMARY KEY) : 主键是唯一的,一个数据表中只能包含一个主键。你可以使用主键来查询数据。
-- 索引(index) :使用索引可快速访问数据库表中的特定信息。索引是对数据库表中一列或多列的值进行排序的一种结构。类似于书籍的目录
+- 主键(PRIMARY KEY) : 主键是唯一的,一个数据表中只能包含一个主键. 你可以使用主键来查询数据. 
+- 索引(index) :使用索引可快速访问数据库表中的特定信息. 索引是对数据库表中一列或多列的值进行排序的一种结构. 类似于书籍的目录
 - 表头(header): 每一列的名称;
 - 列(col): 具有相同数据类型的数据的集合;
 - 行(row): 每一行用来描述某条记录的具体信息;
@@ -134,9 +138,9 @@ docker-compose exec mysql bash
 
 - select database
 
-  在你连接到 MySQL 数据库后，可能有多个可以操作的数据库，所以你需要选择你要操作的数据库。
+  在你连接到 MySQL 数据库后, 可能有多个可以操作的数据库, 所以你需要选择你要操作的数据库. 
 
-  成功选择了某个数据库后，在后续的操作中都会在选择的数据库中执行
+  成功选择了某个数据库后, 在后续的操作中都会在选择的数据库中执行
 
   ```bash
   use zeaho;
@@ -189,7 +193,7 @@ docker-compose exec mysql bash
   INSERT INTO `zeaho`.`admin`(`nick_name`, `unique_name`, `password`, `remember_token`) VALUES ('name1', '17612', 'secrey1', '1dsddas1');
   ```
 
-  如果数据是字符型，必须使用单引号或者双引号，如："value"。
+  如果数据是字符型, 必须使用单引号或者双引号, 如："value". 
 
 - 查询数据
 
@@ -211,7 +215,7 @@ docker-compose exec mysql bash
     select distinct（password）from admin;
     ```
 
-  - 最大列，最小列
+  - 最大列, 最小列
 
     ```
     select max(id) from admin;
@@ -268,9 +272,9 @@ docker-compose exec mysql bash
   [WHERE Clause]
   ```
 
-  - 你可以同时更新一个或多个字段。
-  - 你可以在 WHERE 子句中指定任何条件。
-  - 你可以在一个单独表中同时更新数据。
+  - 你可以同时更新一个或多个字段. 
+  - 你可以在 WHERE 子句中指定任何条件. 
+  - 你可以在一个单独表中同时更新数据. 
 
   ```bash
   ##单表更新
@@ -288,9 +292,9 @@ docker-compose exec mysql bash
   ```
 
   ```bash
-  如果没有指定 WHERE 子句，MySQL 表中的所有记录将被删除。
+  如果没有指定 WHERE 子句, MySQL 表中的所有记录将被删除. 
   你可以在 WHERE 子句中指定任何条件
-  您可以在单个表中一次性删除记录。
+  您可以在单个表中一次性删除记录. 
   ```
 
   ```bash
@@ -319,8 +323,8 @@ docker-compose exec mysql bash
   WHERE column_name operator value
   GROUP BY column_name;
   
-  GROUP BY 语句根据一个或多个列对结果集进行分组。
-  在分组的列上我们可以使用 COUNT(总数), SUM(求和), AVG(平均值),等函数。
+  GROUP BY 语句根据一个或多个列对结果集进行分组. 
+  在分组的列上我们可以使用 COUNT(总数), SUM(求和), AVG(平均值),等函数. 
   ```
 
   测试数据表
