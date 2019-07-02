@@ -2,12 +2,12 @@
 ## hello blog
 
 ### themes采用git submodule的方式引入，保证通信
-git clone会导致引入的theme无法上传至 github
+因为 git clone方式 会导致引入的theme无法上传至 github
 
 修改themes : 
 ```bash
 	cd themes/your_theme
-	vim ...
+	vim something
 	git commit -m "Info"
 	git push
 	
