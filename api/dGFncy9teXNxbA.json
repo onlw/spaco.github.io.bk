@@ -1,1 +1,1 @@
-{"per_page":10,"total":1,"current":1,"data":[{"title":"mysql-basic","date":"2018-12-14T00:00:00.000Z","slug":"mysql-basic"},{"title":"mysql-transaction","date":"2018-12-09T00:00:00.000Z","slug":"mysql-transaction"}],"name":"mysql"}
+{"per_page":10,"total":1,"current":1,"data":[{"title":"mysql-basic","date":"2018-12-14T00:00:00.000Z","link":"post/mysql-basic"},{"title":"mysql-transaction","date":"2018-12-09T00:00:00.000Z","link":"post/mysql-transaction"}],"name":"mysql"}
