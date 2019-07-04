@@ -8,7 +8,7 @@ tags:
 comments: true
 date: 2019-05-20
 updated: 2019-05-20
-thumbnail: 'banners/lauretta_bennu_particle_jets.jpg'
+thumbnail: 'banners/ZhUwdBwIDiIefFYJ.jpg'
 ---
 
 # Reset Password

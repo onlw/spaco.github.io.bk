@@ -6,7 +6,9 @@
 
 修改themes : 
 ```bash
+	# 先push theme 突然再push Hexo
 	cd themes/your_theme
+	git pull origin master
 	vim something
 	git commit -m "Info"
 	git push

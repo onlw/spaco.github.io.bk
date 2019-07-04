@@ -6,12 +6,12 @@ categories:
 tags: 
 - queue
 comments: true
-date: 2019-08-20
-updated: 2019-08-20
+date: 2018-08-20
+updated: 2018-08-20
 ---
 Briefly introduce the principle of queues, the implementation of common programming languages
 
-## ## Queue
+## Queue
 
 ### FIFO结构
 
