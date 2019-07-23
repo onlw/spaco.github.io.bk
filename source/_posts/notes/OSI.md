@@ -1,23 +1,13 @@
 ---
-
 title: OSI : Open System Interconnection Reference Model
-
 permalink: open-system-interconnection-reference-model
-
 categories:
-
 - program
-
 tags: 
-
 - OSI
-
 comments: true
-
 date: 2019-07-22
-
 updated: 2019-07-22
-
 ---
 
 **开放式系统互联通信参考模型**（英语：**O**pen **S**ystem **I**nterconnection Reference Model，缩写：OSI；简称为**OSI模型**）是一种[概念模型](https://zh.wikipedia.org/wiki/概念模型)，由[国际标准化组织](https://zh.wikipedia.org/wiki/国际标准化组织)提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。

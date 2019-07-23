@@ -1,23 +1,13 @@
 ---
-
 title: types-of-dependency-injection
-
 permalink: types-of-dependency-injection
-
 categories:
-
 - program
-
 tags: 
-
 - IoC
-
 comments: true
-
-date: 2015-07-15
-
-updated: 2015-07-15
-
+date: 2019-07-15
+updated: 2019-07-15
 ---
 
 Types of Dependency Injection
