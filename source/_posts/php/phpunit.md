@@ -10,9 +10,8 @@ date: 2019-07-04
 updated: 2019-07-04
 ---
 
-PHPUnit是一个面向PHP程序员的测试框架，这是一个xUnit的体系结构的单元测试框架
+[PHPUnit](https://phpunit.de)是一个面向PHP程序员的测试框架，这是一个xUnit的体系结构的单元测试框架
 
-## https://phpunit.de/
 
 ## Install
 
@@ -27,7 +26,7 @@ phpunit --version
 
 
 
-## PhpStorm
+## Used in phpstorm
 
 Languages & Frameworks  ->  PHP  -> Debug  -> Test Frameworks
 

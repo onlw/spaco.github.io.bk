@@ -1,4 +1,4 @@
-\---
+---
 
 title: types-of-dependency-injection
 
@@ -6,11 +6,11 @@ permalink: types-of-dependency-injection
 
 categories:
 
-\- program
+- program
 
 tags: 
 
-\- IoC
+- IoC
 
 comments: true
 
@@ -18,7 +18,7 @@ date: 2015-07-15
 
 updated: 2015-07-15
 
-\---
+---
 
 Types of Dependency Injection
 此篇文章使用 Java 代码作为演示
@@ -31,7 +31,7 @@ Spring通过DI（依赖注入）实现IoC（控制反转)
 
 https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-dependencies
 
-##Types
+## Types
 
 ### Constructor Injection
 
