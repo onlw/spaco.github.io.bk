@@ -12,11 +12,19 @@ updated: 2018-12-09
 
 ## Explains Garbage Collection (also known as GC) of PHP
 
-### Related concepts
+
+
+### PHP Language
+
+PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的，要运行PHP代码需要PHP解析器，用户编写的PHP代码最终都会被PHP解析器解析执行，PHP的执行是通过 `Zend engine`（ZE, Zend引擎），ZE是用C编写的，用户编写的PHP代码最终都会被翻译成PHP的虚拟机ZE的虚拟指令（`OPCODES`）来执行，也就说最终会被翻译成一条条的指令
+
+
+
+### 概念
 
 - Garbage Collection : GC
 
-- PHP 5.2以前, PHP使用引用计数(Reference counting)来做资源管理,PHP 5.3才引入GC
+- PHP 5.2以前, PHP使用引用计数(Reference counting)来做资源管理，PHP 5.3才引入GC
 
 - zval  ：所有的变量都是用一个结构 zval 结构来保存的
 
@@ -25,9 +33,11 @@ updated: 2018-12-09
   - is_ref ：被 & 引用的数量
   - refcount ：引用计数，记录了当前的 zval 被引用的次数（这里的引用并不是真正的 & ，而是有几个变量指向它）
 
-- Copy On Write  : COW
+- Copy On Write  
 
-- arithmetic
+- Change On Write
+
+- 过程
 
   PHP5.2 : [Reference Counting](http://php.net/manual/en/features.gc.refcounting-basics.php) : 引用计数，GC根本算法
 
@@ -35,17 +45,15 @@ updated: 2018-12-09
 
 - function : [memory_get_usage](http://php.net/manual/en/function.memory-get-usage.php)
 
-- function : xdebug_debug_zval() : need xdebug extension
+- function : xdebug_debug_zval() : 需要安装xdebug
 
-- function : [debug_zval_dump](http://php.net/manual/en/function.debug-zval-dump.php)
+- function : [debug_zval_dump](http://php.net/manual/en/function.debug-zval-dump.php)  当不使用xdebug时，可以作为替代xdebug_debug_zval 的方法
 
-### PHP Language characteristics
 
-PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的，要运行PHP代码需要PHP解析器，用户编写的PHP代码最终都会被PHP解析器解析执行，PHP的执行是通过 `Zend engine`（ZE, Zend引擎），ZE是用C编写的，用户编写的PHP代码最终都会被翻译成PHP的虚拟机ZE的虚拟指令（`OPCODES`）来执行，也就说最终会被翻译成一条条的指令
 
-### Sketch :PHP5.3
+### Introdution
 
-- `zval sketch`
+- `zval`
 
   声明一个变量
 
@@ -53,7 +61,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   $addr = 'i value';
   ```
 
-  PHP内部都是使用 zval 来表示变量的，那对于上面的脚本，ZE是如何把 addr 和内部的 zval 结构联系起来的呢？变量都是有名字的（本例中变量名为 addr ），而 zval 中并没有相应的字段来体现变量名。PHP内部有一个机制，来实现变量名到 zval 的映射，在PHP中，所有的变量都会存储在一个 `hash table`中，当你创建一个变量的时候，PHP会为这个变量分配一个 zval，填入相应的信息，然后将这个变量的名字和指向这个 zval 的指针填入一个数组中。当你获取这个变量的时候，PHP会通过查找 hash table，取得对应的 zval
+  PHP内部都是使用 zval 来表示变量的，那对于上面的脚本，ZE是如何把 `$addr` 变量 和内部的 zval 结构联系起来的呢？变量都是有名字的（本例中变量名为 `$addr` ），而 zval 中并没有相应的字段来体现变量名。PHP内部有一个机制，来实现变量名到 zval 的映射，在PHP中，所有的变量都会存储在一个 `hash table`中，当你创建一个变量的时候，PHP会为这个变量分配一个 zval，填入相应的信息，然后将这个变量的名字和指向这个 zval 的指针填入一个数组中。当你获取这个变量的时候，PHP会通过查找 hash table，取得对应的 zval
 
   `注意：数组和对象这类复合类型在生成zval时，会为每个单元生成一个 zval`
 
@@ -147,9 +155,9 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
 
   PHP中，Zend引擎为了区分同一块内存是否被多个变量引用，在zval结构中定义了ref_count和is_ref两个变量。
 
-  ref_count定义了内存被变量引用的次数，次数为0时销毁
+  **ref_count定义了内存被变量引用的次数，次数为0时销毁**
 
-  is_ref定义了变量是否被强制引用，被强制引用时，值为1
+  **is_ref定义了变量是否被强制引用，被强制引用时，值为1**
 
   ```php
   $a = 1;
@@ -204,8 +212,8 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
   $var_ref = &$var;
   ```
 
-  当执行第二行代码的时候,变量的值必须分离成两份完全独立的存在，也就是说php将一个zval的isref从0设为1之前，当然此时refcount还没有增加，会看该zval的refcount，如果refcount>1，则会分离, 将var_dup分离出去，并将var和var_ref做change on write关联。也就是，refcount=2, is_ref=1;
-  所以内存会给变量var_dup 分配出一个新的zval，类型与值同 var和var_ref指向的zval一样，是新分配出来的，尽管他们拥有同样的值，但是必须通过两个zval来实现。试想一下，如果三者指向同一个zval的话，改变 vardup的值，那么var和 var_ref 也会受到影响，这样是错误的
+  当执行第二行代码的时候,变量的值必须分离成两份完全独立的存在，也就是说php将一个zval的isref从0设为1之前，当然此时refcount还没有增加，会看该zval的refcount，如果refcount>1，则会分离, 将var_dup分离出去，并将var和var_ref做change on write关联。也就是，refcount=2, is_ref=1.
+  所以内存会给变量var_dup 分配出一个新的zval，类型与值同 var和var_ref指向的zval一样，是新分配出来的，尽管他们拥有同样的值，但是必须通过两个zval来实现。试想一下，如果三者指向同一个zval的话，改变 `$vardup`的值，那么var和 var_ref 也会受到影响，这样是错误的
 
   ![](https://image-static.segmentfault.com/238/459/2384596612-569f6e23462c4_articlex)
 
@@ -219,7 +227,7 @@ PHP 是脚本语言，所谓脚本语言，就是说PHP并不是独立运行的�
 
   ![](https://image-static.segmentfault.com/113/070/113070557-569f6e35da911_articlex)
 
-- `debug_zval_dump()中参数是引用的话，refcount永远为1`
+- `debug_zval_dump 参数是引用的话，refcount永远为1`
 
   ```php
   $a = 1;
@@ -276,13 +284,13 @@ xdebug_debug_zval( 'a' );
 
 ![](http://php.net/manual/zh/images/12f37b1c6963c1c5c18f30495416a197-leak-array.png)
 
-清除变量引起的问题：
+### 清理变量容器的问题(Cleanup Problems)
 
 尽管不再有某个作用域中的任何符号指向这个结构(就是变量容器)，由于数组元素“1”仍然指向数组本身，所以这个容器不能被清除 。因为没有另外的符号指向它，用户没有办法清除这个结构，结果就会导致`内存泄漏`。庆幸的是，php将在脚本执行结束时清除这个数据结构，但是在php清除之前，将耗费不少内存。如果你要实现分析算法，或者要做其他像一个子元素指向它的父元素这样的事情，这种情况就会经常发生。当然，同样的情况也会发生在对象上，实际上对象更有可能出现这种情况，因为对象总是隐式的被引用。
 
 如果上面的情况发生仅仅一两次倒没什么，但是如果出现几千次，甚至几十万次的内存泄漏，这显然是个大问题。这样的问题往往发生在长时间运行的脚本中，比如请求基本上不会结束的守护进程(deamons)或者单元测试中的大的套件(sets)中。后者的例子：在给巨大的eZ(一个知名的PHP Library) 组件库的模板组件做单元测试时，就可能会出现问题。有时测试可能需要耗用2GB的内存，而测试服务器很可能没有这么大的内存。
 
-### Concurrent Cycle Collection in Reference Counted Systems
+###回收周期(Collecting Cycles)
 
 PHP5.3的垃圾回收算法仍然以引用计数为基础，但是不再是使用简单计数作为回收准则，而是使用了一种同步回收算法，这个算法由IBM的工程师在论文[Concurrent Cycle Collection in Reference Counted Systems](http://www.research.ibm.com/people/d/dfb/papers/Bacon01Concurrent.pdf)中提出。 
 
