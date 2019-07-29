@@ -12,7 +12,7 @@ updated: 2019-07-29
 
 Difference between mongo mongodb mongod
 
-###Mongod 
+### Mongod 
 
 Mongo Daemon 即守护进程
 
