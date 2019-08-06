@@ -9,6 +9,7 @@ install:
 # - npm install -g gulp
 
 script:
+  - hexo clean
   - hexo g
 
 after_script:
