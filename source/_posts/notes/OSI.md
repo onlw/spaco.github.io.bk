@@ -1,6 +1,6 @@
 ---
-title: OSI : Open System Interconnection Reference Model
-permalink: open-system-interconnection-reference-model
+title: OSI - Open System Interconnection Reference Model
+permalink: OSI open-system-interconnection-reference-model
 categories:
 - program
 tags: 
