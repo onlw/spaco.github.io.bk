@@ -1,6 +1,6 @@
 ---
-title: HTTP/2
-permalink: HTTP/2
+title: HTTP2
+permalink: HTTP2
 categories:
 - program
 tags: 
