@@ -62,13 +62,45 @@ SOAP使用因特网应用层协议作为其传输协议。[SMTP](https://zh.wiki
 
 SOAP的消息格式采用[XML](https://zh.wikipedia.org/wiki/XML)。
 
+实际上计算机网络上交换基于XML的消息的协议，通常是用HTTP。
 
+[SOAP 与 REST 的区别]()
+
+### SOA
+
+**面向服务的体系结构**（英语：service-oriented architecture）并不特指一种技术，而是一种分布式运算的软件设计方法
 
 ### API
 
 应用程序接口（英语：Application Programming Interface，缩写：**API**；又称为应用程序编程接口）是软件系统不同组成部分衔接的约定。 由於近年來软件的规模日益庞大，常常需要把复杂的系统划分成小的组成部分，编程接口的设计十分重要。
 
+### AJAX
+
+**AJAX**即“**Asynchronous JavaScript and XML**”（异步的[JavaScript](https://zh.wikipedia.org/wiki/JavaScript)与[XML](https://zh.wikipedia.org/wiki/XML)技术），指的是一套综合了多项技术的[浏览器](https://zh.wikipedia.org/wiki/瀏覽器)端[网页](https://zh.wikipedia.org/wiki/網頁)开发技术
+
+### JSON
+
+**JSON**（**J**ava**S**cript **O**bject **N**otation，JavaScript对象表示法，读作/ˈdʒeɪsən/）是一种由轻量级的[数据交换语言](https://zh.wikipedia.org/wiki/数据交换)，该语言以易于让人阅读的文字为基础，用来传输由属性值或者序列性的值组成的数据对象。尽管JSON是[JavaScript](https://zh.wikipedia.org/wiki/JavaScript)的一个子集，但JSON是独立于语言的[文本格式](https://zh.wikipedia.org/wiki/文本文件)。
+
+JSON 数据格式与语言无关，脱胎自[JavaScript](https://zh.wikipedia.org/wiki/JavaScript)，但当前很多[编程语言](https://zh.wikipedia.org/wiki/编程语言)都支持 JSON 格式数据的生成和[解析](https://zh.wikipedia.org/wiki/语法分析器)。JSON 的官方 [MIME 类型](https://zh.wikipedia.org/wiki/互联网媒体类型)是 `application/json`，文件扩展名是 `.json`。
+
+
+
 ## Java
+
+### JPA
+
+**Java 持久化 API** (**Java Persistence API **)是一个 [Java](https://zh.wikipedia.org/wiki/Java) [应用程序接口](https://zh.wikipedia.org/wiki/应用程序接口) 规范，描述了使用 [Java标准版平台](https://zh.wikipedia.org/wiki/Java_SE)（Java SE） 和 [Java企业版平台](https://zh.wikipedia.org/wiki/Jakarta_EE)（Java EE）的应用中的 [关系数据](https://zh.wikipedia.org/wiki/Jakarta_EE) 的管理。
+
+[持久化](https://en.wikipedia.org/wiki/Persistence_(computer_science))，在这里包括三个层面的意思：
+
+- [API](https://zh.wikipedia.org/wiki/应用程序接口) 本身，定义在 javax.persistence 包`内`
+- Java持久化查询语言 (JPQL)
+- 对象/关系 元数据
+
+### JPQL
+
+Java持久化查询语言 （JPQL）对存储在关系数据库中的实体进行查询。查询在语法上类似于SQL查询，但是操作的是实体对象而不是直接对数据库表进行操作。
 
 ### EJB
 
@@ -76,7 +108,7 @@ SOAP的消息格式采用[XML](https://zh.wikipedia.org/wiki/XML)。
 
 ### POJO
 
-**POJO**（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。 使用**POJO**名称是为了避免和EJB混淆起来, 而且简称比较直接.
+**POJO**（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。 使用**POJO**名称是为了避免和EJB混淆起来, 而且简称比较直接.其中有一些属性及其 getter setter 方法的类，没有业务逻辑，有时可以作为VO(Value Object) 或 DTO(Data Transform Object) 来使用。当然，如果你有一个简单的运算属性也是可以的。
 
 
 
@@ -88,6 +120,12 @@ SOAP的消息格式采用[XML](https://zh.wikipedia.org/wiki/XML)。
   **PHP**（全称：**P**HP：**H**ypertext **P**reprocessor，即“PHP：超文本预处理器”）是一种[开源](https://zh.wikipedia.org/wiki/开源)的通用[计算机](https://zh.wikipedia.org/wiki/计算机)[脚本语言](https://zh.wikipedia.org/wiki/脚本语言)，尤其适用于[网络开发](https://zh.wikipedia.org/wiki/网络开发)并可嵌入[HTML](https://zh.wikipedia.org/wiki/HTML)中使用。PHP的语法借鉴吸收[C语言](https://zh.wikipedia.org/wiki/C语言)、[Java](https://zh.wikipedia.org/wiki/Java)和[Perl](https://zh.wikipedia.org/wiki/Perl)等流行计算机语言的特点，易于一般[程序员](https://zh.wikipedia.org/wiki/程序员)学习。PHP的主要目标是允许网络开发人员快速编写[动态页面](https://zh.wikipedia.org/wiki/动态页面)，但PHP也被用于其他很多领域。[[1\]](https://zh.wikipedia.org/wiki/PHP#cite_note-1)
 
   PHP最初是由[勒多夫](https://zh.wikipedia.org/wiki/拉斯姆斯·勒多夫)在1995年开始开发的；现在PHP的标准由the PHP Group[[2\]](https://zh.wikipedia.org/wiki/PHP#cite_note-2)维护。PHP以PHP License作为许可协议，不过因为这个协议限制了PHP名称的使用，所以和[开放源代码](https://zh.wikipedia.org/wiki/開放原始碼)许可协议[GPL](https://zh.wikipedia.org/wiki/GPL)不兼容。[[3\]](https://zh.wikipedia.org/wiki/PHP#cite_note-3)
+
+
+
+## DataBase
+
+
 
   
 
