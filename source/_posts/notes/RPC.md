@@ -1,15 +1,15 @@
 ---
-title: demo
-permalink: demo
+title: RPC
+permalink: RPC
 categories:
 - program
 tags: 
-- demo
+- RPC
 comments: true
 date: 2015-08-20
 updated: 2015-08-20
 ---
-Demo Demo
+RPC
 ## Queue
 
 ### FIFO结构
