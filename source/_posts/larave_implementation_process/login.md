@@ -13,7 +13,7 @@ updated: 2019-06-14
 
 ## Quick Start
 
-```bash
+```php
 composer create-project --prefer-dist laravel/laravel principle && cd principle
 php artisan make:auth
 # database configuration
@@ -28,12 +28,12 @@ php artisan serve
 
 `Auth::routes();`
 
-```bash
+```php
 # config/app.php
 'Auth' => Illuminate\Support\Facades\Auth::class
 ```
 
-```bash
+```php
 		# Illuminate\Support\Facades\Auth
     public static function routes(array $options = [])
     {
@@ -41,7 +41,7 @@ php artisan serve
     }
 ```
 
-```bash
+```php
     # Illuminate\Routing\RoutingServiceProvider
     protected function registerRouter()
     {
@@ -51,7 +51,7 @@ php artisan serve
     }
 ```
 
-```bash
+```php
     # Illuminate\Routing\Router
     public function auth(array $options = [])
     {
